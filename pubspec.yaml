@@ -1,0 +1,52 @@
+name: block_porn
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+environment:
+  sdk: ^3.10.0-162.1.beta
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  auto_route: ^11.1.0
+  dio: ^5.9.2
+  freezed: ^3.2.5
+  get_it: ^6.0.0
+  flutter_bloc: ^9.1.1
+  flutter_svg: ^2.2.4
+  shared_preferences: ^2.5.4
+  equatable: ^2.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  build_runner: ^2.13.1
+  json_serializable: ^6.13.1
+  freezed_annotation: ^3.1.0
+
+
+flutter:
+  uses-material-design: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
