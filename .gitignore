@@ -1,0 +1,87 @@
+# ────────────────────────────────────────
+# DART & PUB
+# ────────────────────────────────────────
+.dart_tool/
+.packages
+pubspec.lock
+doc/api/
+
+# ────────────────────────────────────────
+# FLUTTER
+# ────────────────────────────────────────
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-history
+
+# ────────────────────────────────────────
+# BUILD OUTPUTS
+# ────────────────────────────────────────
+build/
+*.dart.js
+*.info.json
+*.js
+*.js_
+*.js.deps
+*.js.map
+
+# ────────────────────────────────────────
+# ANDROID
+# ────────────────────────────────────────
+android/.gradle/
+android/local.properties
+android/key.properties
+android/*.jks
+android/app/google-services.json
+android/app/debug.keystore
+android/app/release.keystore
+android/captures/
+android/.idea/
+android/GeneratedPluginRegistrant.java
+*.apk
+*.aab
+*.dex
+
+# ────────────────────────────────────────
+# ENVIRONMENT & SECRETS
+# ────────────────────────────────────────
+.env
+.env.*
+*.pem
+*.p12
+*.keystore
+google-services.json
+firebase_options.dart
+
+# ────────────────────────────────────────
+# IDE & EDITORS
+# ────────────────────────────────────────
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.fleet/
+
+# ────────────────────────────────────────
+# OS FILES
+# ────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ────────────────────────────────────────
+# COVERAGE & TESTING
+# ────────────────────────────────────────
+coverage/
+*.lcov
+test/.test_coverage.dart
+
+# ────────────────────────────────────────
+# MISC
+# ────────────────────────────────────────
+*.log
+*.pid
+*.seed
+*.bak
+*.tmp
+*.swp
