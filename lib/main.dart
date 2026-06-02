@@ -1,15 +1,138 @@
+import 'package:block_porn/src/features/authentication/presentation/pages/auth_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'dart:ui';
+import 'src/core/utils/injections.dart';
+import 'src/core/helper/app_helper.dart';
+import 'package:provider/provider.dart';
+import 'src/shared/domain/entitles/language_enum.dart';
+import 'src/shared/data/datasources/app_shared_preferences.dart';
+import 'src/core/styles/app_theme.dart';
+import 'dart:async';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'generated/l10n.dart';
 
-void main() {
-  runApp(const MyApp());
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initInjections();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.presentError(details);
+    // TODO: Replace with proper logging
+  };
+  PlatformDispatcher.instance.onError = (error, stack) {
+    // TODO: Replace with proper logging
+    return true; // Prevent default error handling
+  };
+  runApp(ChangeNotifierProvider(create: (_) => AppNotifier(), child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+
+  static void setLocale(BuildContext context, LanguageEnum newLocale) {
+    final _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
+    state?.setLocale(newLocale);
+    sl<AppSharedPreferences>().setLang(newLocale);
+  }
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  Locale locale = const Locale('en');
+  final GlobalKey<ScaffoldMessengerState> snackBarKey =
+      GlobalKey<ScaffoldMessengerState>();
+
+  void setLocale(LanguageEnum newLocale) {
+    setState(() {
+      locale = Locale(newLocale.name);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).unfocus();
+    });
+    WidgetsBinding.instance.addObserver(this);
+    if (mounted) {
+      LanguageEnum newLocale = AppHelper.getLang();
+      setState(() {
+        locale = Locale(newLocale.local);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Flutter Demo');
+    TextScaler textScaler = TextScaler.linear(1.0);
+    return Consumer<AppNotifier>(
+      builder: (context, appNotifier, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaler: textScaler),
+          child: MaterialApp(
+            navigatorKey: navigatorKey,
+            scaffoldMessengerKey: snackBarKey,
+            debugShowCheckedModeBanner: false,
+            home: const AuthPage(),
+            title: 'No Fap',
+            theme: appTheme,
+            darkTheme: darkTheme,
+            themeMode: appNotifier.isDarkTheme
+                ? ThemeMode.dark
+                : ThemeMode.light,
+            locale: locale,
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+}
+
+class AppNotifier extends ChangeNotifier {
+  bool isDarkTheme = false;
+  Future<void> _initialize() async {
+    isDarkTheme = AppHelper.isDarkTheme();
+    notifyListeners();
+  }
+
+  AppNotifier() {
+    _initialize();
+  }
+  void update() {
+    notifyListeners();
+  }
+
+  void updateTheme(bool isDark) {
+    isDarkTheme = isDark;
+    AppHelper.setDarkTheme(isDark);
+    if (isDark) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    } else {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    }
+    notifyListeners();
+  }
+
+  void destroy() {
+    dispose();
   }
 }
