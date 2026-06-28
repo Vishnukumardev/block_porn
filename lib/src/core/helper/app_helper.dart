@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../shared/data/sources/app_shared_preferences.dart';
 import '../utils/injections.dart';
 import '../../shared/domain/entitles/language_enum.dart';
-import '../../shared/data/datasources/app_shared_preferences.dart';
+
 import '../styles/app_colors.dart';
 
 class AppHelper {

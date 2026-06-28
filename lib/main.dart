@@ -1,4 +1,6 @@
 import 'package:block_porn/src/features/authentication/presentation/pages/auth_page.dart';
+import 'package:block_porn/src/shared/data/sources/app_shared_preferences.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:ui';
@@ -6,26 +8,31 @@ import 'src/core/utils/injections.dart';
 import 'src/core/helper/app_helper.dart';
 import 'package:provider/provider.dart';
 import 'src/shared/domain/entitles/language_enum.dart';
-import 'src/shared/data/datasources/app_shared_preferences.dart';
 import 'src/core/styles/app_theme.dart';
 import 'dart:async';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
+import 'firebase_options.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initInjections();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.presentError(details);
+
     // TODO: Replace with proper logging
   };
   PlatformDispatcher.instance.onError = (error, stack) {
     // TODO: Replace with proper logging
     return true; // Prevent default error handling
   };
+
   runApp(ChangeNotifierProvider(create: (_) => AppNotifier(), child: MyApp()));
 }
 
