@@ -22,7 +22,7 @@ extension LanguageEnumExtension on LanguageEnum {
     }
   }
 
-  String get LangName {
+  String get langName {
     switch (this) {
       case LanguageEnum.en:
         return S.of(navigatorKey.currentContext!).english;

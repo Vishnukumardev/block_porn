@@ -19,8 +19,12 @@ pluginManagement {
 
 plugins {
     id("dev.flutter.flutter-plugin-loader") version "1.0.0"
-    id("com.android.application") version "8.9.1" apply false
-    id("org.jetbrains.kotlin.android") version "2.1.0" apply false
+    id("com.android.application") version "9.2.1" apply false
+    id("com.android.library") version "9.2.1" apply false
+    // START: FlutterFire Configuration
+    id("com.google.gms.google-services") version("4.4.4") apply false
+    // END: FlutterFire Configuration
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
 include(":app")

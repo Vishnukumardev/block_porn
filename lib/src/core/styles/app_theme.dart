@@ -1,28 +1,51 @@
+import 'package:block_porn/src/core/utils/constants/local_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'app_colors.dart';
 import 'app_text_style.dart';
 
-///Light Theme
-
+/// Light Theme
 final ThemeData appTheme = ThemeData(
+  useMaterial3: true,
+  brightness: Brightness.light,
   primaryColor: AppColors.primaryColor,
-  dialogTheme: const DialogThemeData(backgroundColor: AppColors.grey),
-  cardColor: AppColors.primaryColor,
-  appBarTheme: AppBarTheme(
-    backgroundColor: AppColors.white,
-    elevation: 2,
-    toolbarTextStyle: const TextTheme(
-      titleLarge: AppTextStyle.largeBlack,
-    ).bodyLarge,
-    titleTextStyle: const TextTheme(
-      titleLarge: AppTextStyle.largeBlack,
-    ).titleLarge,
-    systemOverlayStyle: SystemUiOverlayStyle.light,
-  ),
-  fontFamily: 'Urbanist Regular',
   scaffoldBackgroundColor: AppColors.white,
-  iconTheme: const IconThemeData(color: AppColors.black, size: 25),
+  cardColor: AppColors.primaryColor,
+  fontFamily: 'Urbanist Regular',
+
+  // Clean ColorScheme setup ensures Material 3 works perfectly
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: AppColors.primaryColor,
+    brightness: Brightness.light,
+    primary: AppColors.primaryColor,
+    secondary: AppColors.primaryColor,
+    surface: AppColors.white,
+  ),
+
+  // Fixed class name from DialogThemeData to DialogTheme
+  dialogTheme: const DialogThemeData(
+    backgroundColor: AppColors.grey,
+  ),
+
+  // Optimized mappings avoiding runtime instantiation boilerplate
+  appBarTheme: const AppBarTheme(
+    backgroundColor: AppColors.white,
+    surfaceTintColor: Colors.transparent,
+    elevation: 2,
+    toolbarTextStyle: AppTextStyle.mediumBlack,
+    titleTextStyle: AppTextStyle.largeBlack,
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.light, // For iOS
+      statusBarIconBrightness: Brightness.dark, // For Android
+    ),
+  ),
+
+  iconTheme: const IconThemeData(
+    color: AppColors.black,
+    size: 25,
+  ),
+
   textTheme: const TextTheme(
     headlineLarge: AppTextStyle.largeBlack,
     headlineMedium: AppTextStyle.mediumBlack,
@@ -37,19 +60,20 @@ final ThemeData appTheme = ThemeData(
     labelMedium: AppTextStyle.smallBlack,
     labelSmall: AppTextStyle.xSmallBlack,
   ),
+
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: AppColors.white,
+      foregroundColor: AppColors.primaryColor, // Text/Icon color inside button
       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 18),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       side: const BorderSide(color: AppColors.primaryColor, width: 1),
     ),
   ),
-  colorScheme: ColorScheme.fromSwatch().copyWith(
-    secondary: AppColors.primaryColor,
-  ),
+
   inputDecorationTheme: InputDecorationTheme(
     fillColor: AppColors.transparent,
+    filled: true,
     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
     suffixIconColor: AppColors.black,
     border: OutlineInputBorder(
@@ -66,29 +90,59 @@ final ThemeData appTheme = ThemeData(
     ),
     errorMaxLines: 2,
   ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    showUnselectedLabels: false,
+    showSelectedLabels: false,
+    unselectedIconTheme: IconThemeData(
+        color: AppColors.black
+    ),
+    selectedIconTheme: IconThemeData(
+      size: iconSize,
+      color: AppColors.black
+    ),
+    type: BottomNavigationBarType.fixed
+  )
 );
 
-///Dark Theme
-
+/// Dark Theme
 final ThemeData darkTheme = ThemeData(
-  scaffoldBackgroundColor: AppColors.black,
+  useMaterial3: true,
+  brightness: Brightness.dark,
   primaryColor: AppColors.secondaryColor,
-  dialogTheme: const DialogThemeData(backgroundColor: AppColors.primaryColor),
+  scaffoldBackgroundColor: AppColors.black,
   cardColor: AppColors.secondaryColor,
-  appBarTheme: AppBarTheme(
-    backgroundColor: AppColors.black,
-    elevation: 2,
-    toolbarTextStyle: const TextTheme(
-      titleLarge: AppTextStyle.largeWhite,
-    ).bodyLarge,
-    titleTextStyle: const TextTheme(
-      titleLarge: AppTextStyle.largeWhite,
-    ).titleLarge,
-    systemOverlayStyle: SystemUiOverlayStyle.light,
-  ),
   fontFamily: 'Urbanist Black',
-  // scaffoldBackgroundColor: AppColors.black,
-  iconTheme: const IconThemeData(color: AppColors.white, size: 25),
+
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: AppColors.secondaryColor,
+    brightness: Brightness.dark,
+    primary: AppColors.secondaryColor,
+    secondary: AppColors.primaryColor,
+    surface: AppColors.black,
+  ),
+
+  dialogTheme: const DialogThemeData(
+    backgroundColor: AppColors.primaryColor,
+  ),
+
+  appBarTheme: const AppBarTheme(
+    backgroundColor: AppColors.black,
+    surfaceTintColor: Colors.transparent,
+    elevation: 2,
+    toolbarTextStyle: AppTextStyle.mediumWhite,
+    titleTextStyle: AppTextStyle.largeWhite,
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.dark, // For iOS
+      statusBarIconBrightness: Brightness.light, // For Android
+    ),
+  ),
+
+  iconTheme: const IconThemeData(
+    color: AppColors.white,
+    size: 25,
+  ),
+
   textTheme: const TextTheme(
     headlineLarge: AppTextStyle.largeWhite,
     headlineMedium: AppTextStyle.mediumWhite,
@@ -103,19 +157,20 @@ final ThemeData darkTheme = ThemeData(
     labelMedium: AppTextStyle.smallWhite,
     labelSmall: AppTextStyle.smallWhite,
   ),
+
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: AppColors.black,
+      foregroundColor: AppColors.white, // Text/Icon color inside button
       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 18),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       side: const BorderSide(color: AppColors.white, width: 1),
     ),
   ),
-  colorScheme: ColorScheme.fromSwatch().copyWith(
-    secondary: AppColors.primaryColor,
-  ),
+
   inputDecorationTheme: InputDecorationTheme(
     fillColor: AppColors.transparent,
+    filled: true,
     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
     suffixIconColor: AppColors.white,
     border: OutlineInputBorder(
@@ -132,4 +187,16 @@ final ThemeData darkTheme = ThemeData(
     ),
     errorMaxLines: 2,
   ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        showUnselectedLabels: false,
+        showSelectedLabels: false,
+        unselectedIconTheme: IconThemeData(
+            color: AppColors.primaryColor
+        ),
+        selectedIconTheme: IconThemeData(
+            size: 30.0,
+            color: AppColors.primaryColor
+        ),
+        type: BottomNavigationBarType.fixed
+    )
 );

@@ -9,7 +9,7 @@ Future<void> initInjections() async {
   await initAppInjections();
 }
 
-initSharedPrefsInjections() async {
+Future<void> initSharedPrefsInjections() async {
   sl.registerSingletonAsync<SharedPreferences>(() async {
     return await SharedPreferences.getInstance();
   });

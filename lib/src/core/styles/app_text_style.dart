@@ -19,64 +19,72 @@ class AppTextStyle {
   static const xxSmallBlack = TextStyle(
     color: AppColors.black,
     fontSize: AppFontSize.xxSmall,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w100, // Thin
     fontFamily: 'Public Sans Thin',
   );
+
   static const xSmallBlack = TextStyle(
     color: AppColors.black,
     fontSize: AppFontSize.xSmall,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w300, // Light
     fontFamily: 'Public Sans Light',
   );
+
   static const smallBlack = TextStyle(
     color: AppColors.black,
     fontSize: AppFontSize.small,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w400,
     fontFamily: 'Public Sans Regular',
   );
+
   static const mediumBlack = TextStyle(
     color: AppColors.black,
     fontSize: AppFontSize.medium,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w500,
     fontFamily: 'Public Sans Medium',
   );
+
   static const largeBlack = TextStyle(
     color: AppColors.black,
-    fontSize: AppFontSize.xxLarge,
-    fontWeight: FontWeight.normal,
+    fontSize: AppFontSize.large, // ✅
+    fontWeight: FontWeight.w700, // ✅
     fontFamily: 'Public Sans Bold',
   );
 
   ///------ white ------///
+
+  static const xxSmallWhite = TextStyle(
+    color: AppColors.white,
+    fontSize: AppFontSize.xxSmall,
+    fontWeight: FontWeight.w100, // Thin
+    fontFamily: 'Public Sans Thin',
+  );
+
   static const xSmallWhite = TextStyle(
     color: AppColors.white,
     fontSize: AppFontSize.xSmall,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w300, // Light
     fontFamily: 'Public Sans Light',
   );
+
   static const smallWhite = TextStyle(
     color: AppColors.white,
     fontSize: AppFontSize.small,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w400,
     fontFamily: 'Public Sans Regular',
   );
+
   static const mediumWhite = TextStyle(
     color: AppColors.white,
     fontSize: AppFontSize.medium,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w500, // Medium
     fontFamily: 'Public Sans Medium',
   );
+
   static const largeWhite = TextStyle(
     color: AppColors.white,
-    fontSize: AppFontSize.xxLarge,
-    fontWeight: FontWeight.normal,
+    fontSize: AppFontSize.large,
+    fontWeight: FontWeight.w700,
     fontFamily: 'Public Sans Bold',
-  );
-
-  static const xxSmallwhite = TextStyle(
-    color: AppColors.white,
-    fontSize: AppFontSize.xxSmall,
-    fontWeight: FontWeight.normal,
-    fontFamily: 'Public Sans Thin',
   );
 }

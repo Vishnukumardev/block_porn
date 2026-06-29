@@ -1,4 +1,5 @@
-import 'package:block_porn/src/features/authentication/presentation/pages/auth_page.dart';
+import 'package:block_porn/src/core/router/custom_app_router.dart';
+import 'package:block_porn/src/core/router/custom_route_observer.dart';
 import 'package:block_porn/src/shared/data/sources/app_shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Locale locale = const Locale('en');
   final GlobalKey<ScaffoldMessengerState> snackBarKey =
       GlobalKey<ScaffoldMessengerState>();
-
+  final _appRouter = CustomAppRouter();
   void setLocale(LanguageEnum newLocale) {
     setState(() {
       locale = Locale(newLocale.name);
@@ -82,13 +83,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       builder: (context, appNotifier, child) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaler: textScaler),
-          child: MaterialApp(
-            navigatorKey: navigatorKey,
+          child: MaterialApp.router(
+            routerConfig: _appRouter.config(
+              navigatorObservers:()=> [CustomRouteObserver()]
+            ),
             scaffoldMessengerKey: snackBarKey,
             debugShowCheckedModeBanner: false,
-            home: const AuthPage(),
             title: 'No Fap',
-            theme: appTheme,
+            theme:appTheme,
             darkTheme: darkTheme,
             themeMode: appNotifier.isDarkTheme
                 ? ThemeMode.dark
@@ -100,6 +102,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
+
             supportedLocales: S.delegate.supportedLocales,
           ),
         );
