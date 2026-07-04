@@ -24,16 +24,6 @@ void main() async {
   );
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-  FlutterError.onError = (FlutterErrorDetails details) {
-    FlutterError.presentError(details);
-
-    // TODO: Replace with proper logging
-  };
-  PlatformDispatcher.instance.onError = (error, stack) {
-    // TODO: Replace with proper logging
-    return true; // Prevent default error handling
-  };
-
   runApp(ChangeNotifierProvider(create: (_) => AppNotifier(), child: MyApp()));
 }
 

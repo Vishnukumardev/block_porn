@@ -1,5 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../../main.dart';
 
 @RoutePage()
 class ProfilePage extends StatelessWidget {
@@ -7,6 +10,20 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    final appNotifier = Provider.of<AppNotifier>(context);
+    return Scaffold(
+      body:Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children:[
+          SwitchListTile(
+            title: const Text('Dark Mode'),
+            value: appNotifier.isDarkTheme,
+            onChanged: (bool value) {
+              appNotifier.updateTheme(value);
+            },
+          ),
+        ],
+      )
+    );
   }
 }
