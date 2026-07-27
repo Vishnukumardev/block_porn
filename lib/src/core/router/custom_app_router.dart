@@ -14,9 +14,13 @@ class CustomAppRouter extends RootStackRouter {
       page: MainRoute.page,
       initial: true,
       children: [
+<<<<<<< Updated upstream
         // When entering '/main', automatically redirect to the home sub-page
         RedirectRoute(path: '', redirectTo: 'home'),
 
+=======
+        RedirectRoute(path: '', redirectTo: 'home'),
+>>>>>>> Stashed changes
         AutoRoute(path: 'home', page: HomeRoute.page),
         AutoRoute(path: 'leaderboard', page: LeaderboardRoute.page),
         AutoRoute(path: 'profile', page: ProfileRoute.page),
@@ -24,5 +28,7 @@ class CustomAppRouter extends RootStackRouter {
         AutoRoute(path: 'subscription', page: SubscriptionRoute.page),
       ],
     ),
+    AutoRoute(path: '/dns', page: DnsProtectRoute.page),
+    AutoRoute(path: '/panic', page: PanicRoute.page),
   ];
 }

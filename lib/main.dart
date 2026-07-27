@@ -1,18 +1,20 @@
+import 'dart:async';
+
 import 'package:block_porn/src/core/router/custom_app_router.dart';
 import 'package:block_porn/src/core/router/custom_route_observer.dart';
 import 'package:block_porn/src/shared/data/sources/app_shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'src/core/utils/injections.dart';
-import 'src/core/helper/app_helper.dart';
-import 'package:provider/provider.dart';
-import 'src/shared/domain/entitles/language_enum.dart';
-import 'src/core/styles/app_theme.dart';
-import 'dart:async';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'generated/l10n.dart';
+import 'package:provider/provider.dart';
+
 import 'firebase_options.dart';
+import 'generated/l10n.dart';
+import 'src/core/helper/app_helper.dart';
+import 'src/core/styles/app_theme.dart';
+import 'src/core/utils/injections.dart';
+import 'src/shared/domain/entitles/language_enum.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
@@ -71,6 +73,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaler: textScaler),
           child: MaterialApp.router(
+            key: navigatorKey,
             routerConfig: _appRouter.config(
               navigatorObservers: () => [CustomRouteObserver()],
             ),
@@ -89,7 +92,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-
             supportedLocales: S.delegate.supportedLocales,
           ),
         );

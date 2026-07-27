@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:block_porn/main.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/router/custom_app_router.gr.dart';
@@ -17,7 +16,6 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AutoTabsScaffold(
-        key: navigatorKey,
         routes: [
           HomeRoute(),
           LeaderboardRoute(),
