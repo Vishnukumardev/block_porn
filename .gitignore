@@ -85,3 +85,5 @@ test/.test_coverage.dart
 *.bak
 *.tmp
 *.swp
+lib/src/core/router/custom_app_router.gr.dart
+lib/generated/
