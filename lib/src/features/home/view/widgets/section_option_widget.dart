@@ -25,12 +25,11 @@ Widget sectionWidget({
   required BuildContext context,
   required SectionOptionItem item,
   required int action,
-  required BorderRadius radius,
 }) {
   return Container(
     decoration: BoxDecoration(
       color: context.theme.scaffoldBackgroundColor,
-      borderRadius: radius,
+      borderRadius: BorderRadius.circular(15),
       boxShadow: [
         BoxShadow(
           color: Colors.black.withValues(alpha: 0.2),

@@ -1,9 +1,9 @@
 import 'package:auto_route/annotations.dart';
 import 'package:block_porn/src/core/extension/app_theme_extension.dart';
-import 'package:block_porn/src/core/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../shared/view/widgets/app_bar.dart';
+import '../widgets/section_option_widget.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {
@@ -17,12 +17,91 @@ class HomePage extends StatelessWidget {
         body: Padding(
           padding: EdgeInsetsGeometry.symmetric(horizontal: 10.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              ///----Permissions Block---///
               Container(
-                height: 68,
+                width: contex0000000000000000t.0000000000000000000000000000000000000.
+                00000000000+++++++++++++++
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                .............................................0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                0.
+                width,
                 decoration: BoxDecoration(
                   color: context.theme.scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(15),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withValues(alpha: 0.2),
@@ -32,408 +111,59 @@ class HomePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Row(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15.0,
+                  vertical: 15.0,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: context.theme.primaryColor,
-                          ),
-                          child: Center(child: Icon(Icons.shield_sharp)),
-                        ),
-                      ),
+                    Text(
+                      "Please enable these Permissions : ",
+                      style: context.textTheme.bodyLarge,
                     ),
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Block Sites",
-                            style: context.textTheme.headlineLarge,
-                          ),
-                          Text(
-                            "Protection against sites",
-                            style: context.textTheme.labelMedium,
-                          ),
-                        ],
-                      ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+
+                      children: [
+                        Text("Display over other apps"),
+                        Checkbox(value: false, onChanged: (value) {}),
+                      ],
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 5.0,
-                        ),
-                        child: Container(
-                          height: 25,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: AppColors.green),
-                            color: AppColors.green.withAlpha(16),
-                          ),
-                          child: Center(
-                            child: Text.rich(
-                              TextSpan(
-                                text: '',
-                                children: <InlineSpan>[
-                                  WidgetSpan(
-                                    child: Container(
-                                      height: 10,
-                                      width: 10,
-                                      decoration: BoxDecoration(
-                                        color: AppColors.green,
-                                        borderRadius: BorderRadius.circular(
-                                          100.0,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: ' manage',
-                                    style: context.textTheme.labelMedium
-                                        ?.copyWith(
-                                          color: AppColors.green,
-                                          fontSize: 10.0,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text("Battery Optimization"),
+                        Checkbox(value: false, onChanged: (value) {}),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text("Accessibility Service"),
+                        Checkbox(value: false, onChanged: (value) {}),
+                      ],
                     ),
                   ],
                 ),
               ),
-              Text('DNS protection'),
-              Container(
-                height: 68,
-                decoration: BoxDecoration(
-                  color: context.theme.scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.2),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(2, 4),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: context.theme.primaryColor,
-                          ),
-                          child: Center(child: Icon(Icons.cloud_download)),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "DNS Shield",
-                            style: context.textTheme.headlineLarge,
-                          ),
-                          Text(
-                            "Block sites in Network Level",
-                            style: context.textTheme.labelMedium,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 5.0,
-                        ),
-                        child: SizedBox(
-                          height: 25,
 
-                          child: Center(
-                            child: Icon(Icons.arrow_forward_ios, size: 10),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Text('Panic button'),
-              Container(
-                height: 68,
-                decoration: BoxDecoration(
-                  color: context.theme.scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.2),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(2, 4),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: context.theme.primaryColor,
-                          ),
-                          child: Center(child: Icon(Icons.emergency)),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Panic Button",
-                            style: context.textTheme.headlineLarge,
-                          ),
-                          Text(
-                            "Emergency Button for urges",
-                            style: context.textTheme.labelMedium,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 5.0,
-                        ),
-                        child: SizedBox(
-                          height: 25,
-
-                          child: Center(
-                            child: Icon(Icons.arrow_forward_ios, size: 10),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Text('Accountability partner'),
-              Container(
-                height: 68,
-                decoration: BoxDecoration(
-                  color: context.theme.scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.2),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(2, 4),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: context.theme.primaryColor,
-                          ),
-                          child: Center(child: Icon(Icons.people_alt_rounded)),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Accountability Partner",
-                            style: context.textTheme.headlineLarge,
-                          ),
-                          Text(
-                            "Monitor and support each other",
-                            style: context.textTheme.labelMedium,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 5.0,
-                        ),
-                        child: SizedBox(
-                          height: 25,
-
-                          child: Center(
-                            child: Icon(Icons.arrow_forward_ios, size: 10),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Text('Challenges'),
-              Container(
-                height: 68,
-                decoration: BoxDecoration(
-                  color: context.theme.scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.2),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(2, 4),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: context.theme.primaryColor,
-                          ),
-                          child: Center(
-                            child: Icon(Icons.military_tech_outlined),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "NoFap quest",
-                            style: context.textTheme.headlineLarge,
-                          ),
-                          Text(
-                            "*count active quests",
-                            style: context.textTheme.labelMedium,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 5.0,
-                        ),
-                        child: SizedBox(
-                          height: 25,
-
-                          child: Center(
-                            child: Icon(Icons.arrow_forward_ios, size: 10),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Text('Relapse tracker'),
-              Container(
-                height: 68,
-                decoration: BoxDecoration(
-                  color: context.theme.scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.2),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(2, 4),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: context.theme.primaryColor,
-                          ),
-                          child: Center(
-                            child: Icon(Icons.track_changes_rounded),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Relapse Tracker",
-                            style: context.textTheme.headlineLarge,
-                          ),
-                          Text(
-                            "Track your progress",
-                            style: context.textTheme.labelMedium,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 5.0,
-                        ),
-                        child: SizedBox(
-                          height: 25,
-
-                          child: Center(
-                            child: Icon(Icons.arrow_forward_ios, size: 10),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              ///----Block Sites---///
+              ListView.separated(
+                shrinkWrap: true,
+                itemCount: blockSiteOption.length,
+                itemBuilder: (context, index) {
+                  final item = blockSiteOption[index];
+                  return sectionWidget(
+                    context: context,
+                    item: item,
+                    action: item.action,
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return SizedBox(height: context.height * 0.01);
+                },
               ),
             ],
           ),
