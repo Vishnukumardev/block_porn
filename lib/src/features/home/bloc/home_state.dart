@@ -22,3 +22,15 @@ class HomePermissionDenied extends HomeState {
   @override
   List<Object?> get props => [message];
 }
+
+class OverlayPermissionInitial extends HomeState {}
+
+class OverlayPermissionLoading extends HomeState {}
+
+class OverlayPermissionEnabled extends HomeState {}
+
+class BatteryOptimizationPermissionInitial extends HomeState {}
+
+class BatteryOptimizationPermissionLoading extends HomeState {}
+
+class BatteryOptimizationPermissionEnabled extends HomeState {}

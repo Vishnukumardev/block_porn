@@ -1,8 +1,13 @@
 import 'package:auto_route/annotations.dart';
-import 'package:block_porn/src/core/extension/app_theme_extension.dart';
+import 'package:block_porn/src/features/home/bloc/home_event.dart';
+import 'package:block_porn/src/features/home/bloc/home_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/extension/app_theme_extension.dart';
 import '../../../../shared/view/widgets/app_bar.dart';
+import '../../bloc/home_bloc.dart';
+import '../../home_injections.dart';
 import '../widgets/section_option_widget.dart';
 
 @RoutePage()
@@ -11,161 +16,121 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: customAppBar(context),
-        body: Padding(
-          padding: EdgeInsetsGeometry.symmetric(horizontal: 10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ///----Permissions Block---///
-              Container(
-                width: contex0000000000000000t.0000000000000000000000000000000000000.
-                00000000000+++++++++++++++
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                .............................................0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                0.
-                width,
-                decoration: BoxDecoration(
-                  color: context.theme.scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.2),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(2, 4),
-                    ),
-                  ],
+    return BlocProvider(
+      create: (BuildContext context) => sl<HomeBloc>(),
+      child: SafeArea(
+        child: Scaffold(
+          appBar: customAppBar(context),
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 10.0,
+              children: [
+                ///----Permissions Block---///
+                BlocBuilder<HomeBloc, HomeState>(
+                  builder: (context, state) {
+                    return Container(
+                      width: context.width,
+                      decoration: BoxDecoration(
+                        color: context.theme.scaffoldBackgroundColor,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.2),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: const Offset(2, 4),
+                          ),
+                        ],
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 15.0,
+                        vertical: 15.0,
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            "Please enable these Permissions : ",
+                            style: context.textTheme.bodyLarge,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Display over other apps"),
+                              InkWell(
+                                onTap: () {
+                                  context.read<HomeBloc>().add(
+                                    RequestOverlayPermissionEvent(),
+                                  );
+                                },
+                                child: Text(
+                                  "Grant",
+                                  style: context.textTheme.labelLarge?.copyWith(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Battery Optimization"),
+                              InkWell(
+                                onTap: () {
+                                  context.read<HomeBloc>().add(
+                                    RequestBatteryPermissionEvent(),
+                                  );
+                                },
+                                child: Text(
+                                  "Grant",
+                                  style: context.textTheme.labelLarge?.copyWith(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Accessibility Service"),
+                              Text(
+                                "Grant",
+                                style: context.textTheme.labelLarge?.copyWith(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 15.0,
-                  vertical: 15.0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Please enable these Permissions : ",
-                      style: context.textTheme.bodyLarge,
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
 
-                      children: [
-                        Text("Display over other apps"),
-                        Checkbox(value: false, onChanged: (value) {}),
-                      ],
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text("Battery Optimization"),
-                        Checkbox(value: false, onChanged: (value) {}),
-                      ],
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text("Accessibility Service"),
-                        Checkbox(value: false, onChanged: (value) {}),
-                      ],
-                    ),
-                  ],
+                ///----Block Sites---///
+                ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: blockSiteOption.length,
+                  itemBuilder: (context, index) {
+                    final item = blockSiteOption[index];
+                    return sectionWidget(
+                      context: context,
+                      item: item,
+                      action: item.action,
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(height: context.height * 0.01);
+                  },
                 ),
-              ),
-
-              ///----Block Sites---///
-              ListView.separated(
-                shrinkWrap: true,
-                itemCount: blockSiteOption.length,
-                itemBuilder: (context, index) {
-                  final item = blockSiteOption[index];
-                  return sectionWidget(
-                    context: context,
-                    item: item,
-                    action: item.action,
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(height: context.height * 0.01);
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

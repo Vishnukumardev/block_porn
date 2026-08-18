@@ -10,6 +10,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<CheckProtectionStatusEvent>(_onCheckStatus);
     on<EnableProtectionEvent>(_onEnableProtection);
     on<DisableProtectionEvent>(_onDisableProtection);
+    on<RequestOverlayPermissionEvent>(_omEnableOverlayPermission);
+    on<RequestBatteryPermissionEvent>(_onEnableBatteryOptimizationPermission);
   }
 
   Future<void> _onCheckStatus(
@@ -25,6 +27,46 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(HomePermissionEnabled());
     } else {
       emit(HomePermissionDisabled());
+    }
+  }
+
+  Future<void> _omEnableOverlayPermission(
+    RequestOverlayPermissionEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    try {
+      emit(OverlayPermissionInitial());
+
+      bool hasOverlay = await permissionService.isOverlayGranted();
+      if (!hasOverlay) {
+        emit(OverlayPermissionLoading());
+        await permissionService.requestOverlayPermission();
+        hasOverlay = await permissionService.isOverlayGranted();
+      }
+
+      emit(OverlayPermissionEnabled());
+    } catch (e) {
+      emit(HomePermissionDenied('Failed to enable features :$e'));
+    }
+  }
+
+  Future<void> _onEnableBatteryOptimizationPermission(
+    RequestBatteryPermissionEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    try {
+      emit(BatteryOptimizationPermissionInitial());
+      bool isBatteryDisabled = await permissionService
+          .isBatteryOptimizationDisabled();
+      if (!isBatteryDisabled) {
+        emit(BatteryOptimizationPermissionLoading());
+        await permissionService.requestDisableBatteryOptimization();
+        isBatteryDisabled = await permissionService
+            .isBatteryOptimizationDisabled();
+      }
+      emit(BatteryOptimizationPermissionEnabled());
+    } catch (e) {
+      emit(HomePermissionDenied('Failed to enable features :$e'));
     }
   }
 

@@ -1,12 +1,17 @@
 import 'package:block_porn/src/features/home/bloc/home_bloc.dart';
-
-import '../../core/utils/injections.dart';
+import 'package:get_it/get_it.dart';
 import '../../shared/services/permission_services.dart';
 
-Future<void> setupServiceLocator() async {
-  sl.registerLazySingleton<IPermissionService>(() => PermissionService());
+final sl = GetIt.instance;
 
-  sl.registerFactory<HomeBloc>(
-    () => HomeBloc(permissionService: sl<IPermissionService>()),
-  );
+Future<void> initHomeInjections() {
+  if (!sl.isRegistered<IPermissionService>()) {
+    sl.registerLazySingleton<IPermissionService>(() => PermissionService());
+  }
+  if (!sl.isRegistered<HomeBloc>()) {
+    sl.registerFactory<HomeBloc>(
+      () => HomeBloc(permissionService: sl<IPermissionService>()),
+    );
+  }
+  return Future.value();
 }

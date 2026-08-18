@@ -32,14 +32,14 @@ class _MainPageState extends State<MainPage> {
                 icon: Icon(Icons.home_filled),
                 label: 'Home',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.leaderboard),
-                label: 'Leaderboard',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.analytics),
-                label: "Analyze",
-              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.leaderboard),
+              //   label: 'Leaderboard',
+              // ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.analytics),
+              //   label: "Analyze",
+              // ),
               // BottomNavigationBarItem(
               //   icon: Icon(Icons.subscriptions),
               //   label: "Subscribe",

@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../features/home/home_injections.dart';
 import '../../shared/services/app_injections.dart';
 
 final sl = GetIt.instance;
@@ -7,6 +8,7 @@ final sl = GetIt.instance;
 Future<void> initInjections() async {
   await initSharedPrefsInjections();
   await initAppInjections();
+  await initHomeInjections();
 }
 
 Future<void> initSharedPrefsInjections() async {
