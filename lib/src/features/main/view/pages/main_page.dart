@@ -18,8 +18,8 @@ class _MainPageState extends State<MainPage> {
       body: AutoTabsScaffold(
         routes: [
           HomeRoute(),
-          LeaderboardRoute(),
-          AnalyticsRoute(),
+          // LeaderboardRoute(),
+          // AnalyticsRoute(),
           // SubscriptionRoute(),
           ProfileRoute(),
         ],

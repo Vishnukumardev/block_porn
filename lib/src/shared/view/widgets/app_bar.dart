@@ -15,11 +15,6 @@ AppBar customAppBar(BuildContext context) {
     ),
     title: Text('No Fap'),
     toolbarHeight: 50,
-    scrolledUnderElevation: elevation,
-    actions: [
-      IconButton(
-        icon: Icon(Icons.notifications), onPressed: () {  },
-      ),
-    ],
+    actions: [IconButton(icon: Icon(Icons.notifications), onPressed: () {})],
   );
 }

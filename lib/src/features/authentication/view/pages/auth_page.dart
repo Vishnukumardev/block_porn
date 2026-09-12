@@ -17,7 +17,8 @@ class AuthPage extends StatelessWidget {
           const Center(child: Text('Authentication Page')),
           SizedBox(height: context.height * .1),
           ElevatedButton(
-            onPressed: () => AutoRouter.of(context).replaceAll([const MainRoute()]),
+            onPressed: () =>
+                AutoRouter.of(context).replaceAll([const MainRoute()]),
             child: Text('Go to Main'),
           ),
         ],

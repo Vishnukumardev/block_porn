@@ -23,113 +23,167 @@ class HomePage extends StatelessWidget {
           appBar: customAppBar(context),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 10.0,
-              children: [
-                ///----Permissions Block---///
-                BlocBuilder<HomeBloc, HomeState>(
-                  builder: (context, state) {
-                    return Container(
-                      width: context.width,
-                      decoration: BoxDecoration(
-                        color: context.theme.scaffoldBackgroundColor,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.2),
-                            spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: const Offset(2, 4),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15.0,
-                        vertical: 15.0,
-                      ),
-                      child: Column(
-                        children: [
-                          Text(
-                            "Please enable these Permissions : ",
-                            style: context.textTheme.bodyLarge,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Display over other apps"),
-                              InkWell(
-                                onTap: () {
-                                  context.read<HomeBloc>().add(
-                                    RequestOverlayPermissionEvent(),
-                                  );
-                                },
-                                child: Text(
-                                  "Grant",
-                                  style: context.textTheme.labelLarge?.copyWith(
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.w500,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 10.0,
+                children: [
+                  ///----Permissions Block---///
+                  BlocBuilder<HomeBloc, HomeState>(
+                    builder: (context, state) {
+                      return Container(
+                        width: context.width,
+                        decoration: BoxDecoration(
+                          color: context.theme.scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.2),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset: const Offset(2, 4),
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15.0,
+                          vertical: 15.0,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Please enable these Permissions : ",
+                              style: context.textTheme.bodyLarge,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Display over other apps"),
+                                InkWell(
+                                  onTap: () {
+                                    context.read<HomeBloc>().add(
+                                      RequestOverlayPermissionEvent(),
+                                    );
+                                  },
+                                  child: Text(
+                                    "Grant",
+                                    style: context.textTheme.labelLarge
+                                        ?.copyWith(
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Battery Optimization"),
-                              InkWell(
-                                onTap: () {
-                                  context.read<HomeBloc>().add(
-                                    RequestBatteryPermissionEvent(),
-                                  );
-                                },
-                                child: Text(
-                                  "Grant",
-                                  style: context.textTheme.labelLarge?.copyWith(
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.w500,
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Battery Optimization"),
+                                InkWell(
+                                  onTap: () {
+                                    context.read<HomeBloc>().add(
+                                      RequestBatteryPermissionEvent(),
+                                    );
+                                  },
+                                  child: Text(
+                                    "Grant",
+                                    style: context.textTheme.labelLarge
+                                        ?.copyWith(
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Accessibility Service"),
-                              Text(
-                                "Grant",
-                                style: context.textTheme.labelLarge?.copyWith(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.w500,
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Accessibility Service"),
+                                InkWell(
+                                  onTap: () {
+                                    context.read<HomeBloc>().add(
+                                      RequestAccessibilityPermissionEvent(),
+                                    );
+                                  },
+                                  child: Text(
+                                    "Grant",
+                                    style: context.textTheme.labelLarge
+                                        ?.copyWith(
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
 
-                ///----Block Sites---///
-                ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: blockSiteOption.length,
-                  itemBuilder: (context, index) {
-                    final item = blockSiteOption[index];
-                    return sectionWidget(
-                      context: context,
-                      item: item,
-                      action: item.action,
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(height: context.height * 0.01);
-                  },
-                ),
-              ],
+                  ///----Block Sites---///
+                  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: blockSiteOption.length,
+                    itemBuilder: (context, index) {
+                      final isFirst = index == 0;
+                      final isLast = index == blockSiteOption.length - 1;
+                      final item = blockSiteOption[index];
+                      return sectionWidget(
+                        isFirst: isFirst,
+                        isLast: isLast,
+                        context: context,
+                        item: item,
+                        action: item.action,
+                      );
+                    },
+                  ),
+
+                  ///---Loophole Protection---///
+                  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: panicOption.length,
+                    itemBuilder: (context, index) {
+                      final isFirst = index == 0;
+                      final isLast = index == panicOption.length - 1;
+                      final item = panicOption[index];
+                      return sectionWidget(
+                        isFirst: isFirst,
+                        isLast: isLast,
+                        context: context,
+                        item: item,
+                        action: item.action,
+                      );
+                    },
+                  ),
+
+                  ///---Challenges Protection---///
+                  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: challengesOption.length,
+                    itemBuilder: (context, index) {
+                      final isFirst = index == 0;
+                      final isLast = index == challengesOption.length - 1;
+                      final item = challengesOption[index];
+                      return sectionWidget(
+                        isFirst: isFirst,
+                        isLast: isLast,
+                        context: context,
+                        item: item,
+                        action: item.action,
+                      );
+                    },
+                  ),
+                  SizedBox(height: 20.0),
+                ],
+              ),
             ),
           ),
         ),

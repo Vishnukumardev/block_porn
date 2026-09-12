@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/extension/app_theme_extension.dart';
 import '../../../../core/styles/app_colors.dart';
-import 'block_sites_modal_widget.dart';
 
 class SectionOptionItem {
   final String title;
@@ -22,6 +21,8 @@ class SectionOptionItem {
 }
 
 Widget sectionWidget({
+  required bool isFirst,
+  required bool isLast,
   required BuildContext context,
   required SectionOptionItem item,
   required int action,
@@ -29,7 +30,10 @@ Widget sectionWidget({
   return Container(
     decoration: BoxDecoration(
       color: context.theme.scaffoldBackgroundColor,
-      borderRadius: BorderRadius.circular(15),
+      borderRadius: BorderRadius.vertical(
+        top: isFirst ? const Radius.circular(15) : Radius.zero,
+        bottom: isLast ? const Radius.circular(15) : Radius.zero,
+      ),
       boxShadow: [
         BoxShadow(
           color: Colors.black.withValues(alpha: 0.2),
@@ -78,14 +82,7 @@ Widget sectionWidget({
             if (item.action == 0) {
               AutoRouter.of(context).pushPath(item.route!);
             } else if (item.action == 1) {
-              showModalBottomSheet(
-                backgroundColor: context.theme.scaffoldBackgroundColor,
-                context: context,
-                builder: (BuildContext context) {
-                  return blockSitesModalWidget();
-                },
-              );
-            }
+            } else if (item.action == 2) {}
           },
           child: _buildActionTrailingWidget(context, item.action),
         ),
@@ -117,7 +114,7 @@ Widget _buildActionTrailingWidget(BuildContext context, int action) {
             ),
             const SizedBox(width: 6),
             Text(
-              'manage',
+              'ON',
               style: context.textTheme.labelMedium?.copyWith(
                 color: AppColors.green,
                 fontSize: 10.0,
@@ -127,7 +124,35 @@ Widget _buildActionTrailingWidget(BuildContext context, int action) {
         ),
       );
     case 2:
-      return Switch(value: false, onChanged: (value) {});
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: AppColors.red),
+          color: AppColors.red.withAlpha(16),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 8,
+              width: 8,
+              decoration: const BoxDecoration(
+                color: AppColors.red,
+                shape: BoxShape.circle,
+              ),
+            ),
+            const SizedBox(width: 6),
+            Text(
+              'Reset',
+              style: context.textTheme.labelMedium?.copyWith(
+                color: AppColors.red,
+                fontSize: 10.0,
+              ),
+            ),
+          ],
+        ),
+      );
     default:
       return const SizedBox(
         height: 40,
@@ -138,6 +163,12 @@ Widget _buildActionTrailingWidget(BuildContext context, int action) {
 }
 
 final List<SectionOptionItem> blockSiteOption = [
+  SectionOptionItem(
+    title: "Streak",
+    subtitle: "Protection Against Sites",
+    icon: Icons.timelapse_sharp,
+    action: 2,
+  ),
   SectionOptionItem(
     title: "Block Sites",
     subtitle: "Protection Against Sites",
@@ -153,23 +184,20 @@ final List<SectionOptionItem> blockSiteOption = [
   ),
 ];
 
-// final List<SectionOptionItem> accountPartnerOptions = [
-//   SectionOptionItem(
-//     title: "Accountability Partner",
-//     subtitle: "Monitor and support each other",
-//     icon: Icons.people_alt_rounded,
-//     action: 0,
-//   ),
-// ];
-//
-// final List<SectionOptionItem> challengesOption = [
-//   SectionOptionItem(
-//     title: "NoFap quest",
-//     subtitle: "*count active quests",
-//     icon: Icons.military_tech_outlined,
-//     action: 0,
-//   ),
-// ];
+final List<SectionOptionItem> challengesOption = [
+  SectionOptionItem(
+    title: "NoFap quest",
+    subtitle: "*count active quests",
+    icon: Icons.military_tech_outlined,
+    action: 0,
+  ),
+  SectionOptionItem(
+    title: "Partner Up",
+    subtitle: "Monitor and support each other",
+    icon: Icons.people_alt_rounded,
+    action: 0,
+  ),
+];
 
 final List<SectionOptionItem> panicOption = [
   SectionOptionItem(
@@ -183,15 +211,12 @@ final List<SectionOptionItem> panicOption = [
     title: "Block Removal",
     subtitle: "Blocking the app uninstall ",
     icon: Icons.app_blocking,
-    action: 2,
+    action: 1,
+  ),
+  SectionOptionItem(
+    title: "Relapse Tracker",
+    subtitle: "Track your progress",
+    icon: Icons.track_changes_rounded,
+    action: 0,
   ),
 ];
-
-// final List<SectionOptionItem> trackerOption = [
-//   SectionOptionItem(
-//     title: "Relapse Tracker",
-//     subtitle: "Track your progress",
-//     icon: Icons.track_changes_rounded,
-//     action: 0,
-//   ),
-// ];
