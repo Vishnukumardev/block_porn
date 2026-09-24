@@ -19,8 +19,8 @@ import 'src/shared/domain/entitles/language_enum.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initInjections();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await initInjections();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   runApp(ChangeNotifierProvider(create: (_) => AppNotifier(), child: MyApp()));

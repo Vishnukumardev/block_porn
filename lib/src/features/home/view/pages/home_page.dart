@@ -1,12 +1,12 @@
 import 'package:auto_route/annotations.dart';
-import 'package:block_porn/src/features/home/bloc/home_event.dart';
-import 'package:block_porn/src/features/home/bloc/home_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/extension/app_theme_extension.dart';
 import '../../../../shared/view/widgets/app_bar.dart';
 import '../../bloc/home_bloc.dart';
+import '../../bloc/home_event.dart';
+import '../../bloc/home_state.dart';
 import '../../home_injections.dart';
 import '../widgets/section_option_widget.dart';
 
@@ -50,6 +50,7 @@ class HomePage extends StatelessWidget {
                           vertical: 15.0,
                         ),
                         child: Column(
+                          spacing: 10.0,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
@@ -62,6 +63,7 @@ class HomePage extends StatelessWidget {
                                 Text("Display over other apps"),
                                 InkWell(
                                   onTap: () {
+                                    debugPrint("Clicked");
                                     context.read<HomeBloc>().add(
                                       RequestOverlayPermissionEvent(),
                                     );
@@ -83,6 +85,7 @@ class HomePage extends StatelessWidget {
                                 Text("Battery Optimization"),
                                 InkWell(
                                   onTap: () {
+                                    debugPrint("Clicked");
                                     context.read<HomeBloc>().add(
                                       RequestBatteryPermissionEvent(),
                                     );
@@ -104,6 +107,8 @@ class HomePage extends StatelessWidget {
                                 Text("Accessibility Service"),
                                 InkWell(
                                   onTap: () {
+                                    debugPrint("Clicked");
+
                                     context.read<HomeBloc>().add(
                                       RequestAccessibilityPermissionEvent(),
                                     );

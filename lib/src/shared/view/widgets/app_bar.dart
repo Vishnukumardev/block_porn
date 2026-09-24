@@ -1,7 +1,6 @@
-import 'package:block_porn/src/core/utils/app_assets.dart';
-import 'package:block_porn/src/core/utils/constants/local_constants.dart';
 import 'package:flutter/material.dart';
 import '../../../core/extension/app_theme_extension.dart';
+import '../../../core/utils/app_assets.dart';
 
 AppBar customAppBar(BuildContext context) {
   return AppBar(

@@ -9,7 +9,7 @@ abstract class IPermissionService {
   Future<bool> isOverlayGranted();
   Future<void> requestOverlayPermission();
 
-  Future<bool> isBatteryOptimizationDisabled();
+  Future<bool> isBatteryOptimizationGranted();
   Future<void> requestDisableBatteryOptimization();
 }
 
@@ -35,7 +35,7 @@ class PermissionService implements IPermissionService {
   }
 
   @override
-  Future<bool> isBatteryOptimizationDisabled() async {
+  Future<bool> isBatteryOptimizationGranted() async {
     bool? isDisabled =
         await DisableBatteryOptimization.isBatteryOptimizationDisabled;
     return isDisabled ?? false;

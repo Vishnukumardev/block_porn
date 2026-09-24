@@ -7,17 +7,15 @@ abstract class HomeState extends Equatable {
   List<Object?> get props => [];
 }
 
-class HomePermissionInitial extends HomeState {}
+class PermissionInitial extends HomeState {}
 
-class HomePermissionLoading extends HomeState {}
+class PermissionLoading extends HomeState {}
 
-class HomePermissionEnabled extends HomeState {}
+class PermissionEnabled extends HomeState {}
 
-class HomePermissionDisabled extends HomeState {}
-
-class HomePermissionDenied extends HomeState {
+class PermissionDenied extends HomeState {
   final String message;
-  const HomePermissionDenied(this.message);
+  const PermissionDenied(this.message);
 
   @override
   List<Object?> get props => [message];
@@ -29,8 +27,20 @@ class OverlayPermissionLoading extends HomeState {}
 
 class OverlayPermissionEnabled extends HomeState {}
 
+class OverlayPermissionDenied extends HomeState {}
+
 class BatteryOptimizationPermissionInitial extends HomeState {}
 
 class BatteryOptimizationPermissionLoading extends HomeState {}
 
 class BatteryOptimizationPermissionEnabled extends HomeState {}
+
+class BatteryOptimizationPermissionDenied extends HomeState {}
+
+class AccessibilityPermissionInitial extends HomeState {}
+
+class AccessibilityPermissionLoading extends HomeState {}
+
+class AccessibilityPermissionEnabled extends HomeState {}
+
+class AccessibilityPermissionDenied extends HomeState {}

@@ -1,6 +1,6 @@
-import 'package:block_porn/src/core/utils/constants/local_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../utils/constants/local_constants.dart';
 import 'app_colors.dart';
 import 'app_text_style.dart';
 
@@ -23,9 +23,7 @@ final ThemeData appTheme = ThemeData(
   ),
 
   // Fixed class name from DialogThemeData to DialogTheme
-  dialogTheme: const DialogThemeData(
-    backgroundColor: AppColors.grey,
-  ),
+  dialogTheme: const DialogThemeData(backgroundColor: AppColors.grey),
 
   // Optimized mappings avoiding runtime instantiation boilerplate
   appBarTheme: const AppBarTheme(
@@ -41,10 +39,7 @@ final ThemeData appTheme = ThemeData(
     ),
   ),
 
-  iconTheme: const IconThemeData(
-    color: AppColors.black,
-    size: 25,
-  ),
+  iconTheme: const IconThemeData(color: AppColors.black, size: 25),
 
   textTheme: const TextTheme(
     headlineLarge: AppTextStyle.largeBlack,
@@ -93,15 +88,10 @@ final ThemeData appTheme = ThemeData(
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     showUnselectedLabels: false,
     showSelectedLabels: false,
-    unselectedIconTheme: IconThemeData(
-        color: AppColors.black
-    ),
-    selectedIconTheme: IconThemeData(
-      size: iconSize,
-      color: AppColors.black
-    ),
-    type: BottomNavigationBarType.fixed
-  )
+    unselectedIconTheme: IconThemeData(color: AppColors.black),
+    selectedIconTheme: IconThemeData(size: iconSize, color: AppColors.black),
+    type: BottomNavigationBarType.fixed,
+  ),
 );
 
 /// Dark Theme
@@ -121,9 +111,7 @@ final ThemeData darkTheme = ThemeData(
     surface: AppColors.black,
   ),
 
-  dialogTheme: const DialogThemeData(
-    backgroundColor: AppColors.primaryColor,
-  ),
+  dialogTheme: const DialogThemeData(backgroundColor: AppColors.primaryColor),
 
   appBarTheme: const AppBarTheme(
     backgroundColor: AppColors.black,
@@ -138,10 +126,7 @@ final ThemeData darkTheme = ThemeData(
     ),
   ),
 
-  iconTheme: const IconThemeData(
-    color: AppColors.white,
-    size: 25,
-  ),
+  iconTheme: const IconThemeData(color: AppColors.white, size: 25),
 
   textTheme: const TextTheme(
     headlineLarge: AppTextStyle.largeWhite,
@@ -187,16 +172,11 @@ final ThemeData darkTheme = ThemeData(
     ),
     errorMaxLines: 2,
   ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        showUnselectedLabels: false,
-        showSelectedLabels: false,
-        unselectedIconTheme: IconThemeData(
-            color: AppColors.primaryColor
-        ),
-        selectedIconTheme: IconThemeData(
-            size: 30.0,
-            color: AppColors.primaryColor
-        ),
-        type: BottomNavigationBarType.fixed
-    )
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    showUnselectedLabels: false,
+    showSelectedLabels: false,
+    unselectedIconTheme: IconThemeData(color: AppColors.primaryColor),
+    selectedIconTheme: IconThemeData(size: 30.0, color: AppColors.primaryColor),
+    type: BottomNavigationBarType.fixed,
+  ),
 );

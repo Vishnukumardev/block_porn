@@ -1,36 +1,41 @@
-import 'package:block_porn/src/features/home/bloc/home_event.dart';
-import 'package:block_porn/src/features/home/bloc/home_state.dart';
-import 'package:block_porn/src/shared/services/permission_services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../shared/services/permission_services.dart';
+import 'home_event.dart';
+import 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final IPermissionService permissionService;
 
-  HomeBloc({required this.permissionService}) : super(HomePermissionInitial()) {
-    on<CheckProtectionStatusEvent>(_onCheckStatus);
-    on<EnableProtectionEvent>(_onEnableProtection);
-    on<DisableProtectionEvent>(_onDisableProtection);
-    on<RequestOverlayPermissionEvent>(_omEnableOverlayPermission);
+  HomeBloc({required this.permissionService}) : super(PermissionInitial()) {
+    on<CheckPermissionEvent>(_isPermissionEnabled);
+    on<RequestOverlayPermissionEvent>(_onEnableOverlayPermission);
     on<RequestBatteryPermissionEvent>(_onEnableBatteryOptimizationPermission);
+    on<RequestAccessibilityPermissionEvent>(_onEnableAccessibilityPermission);
   }
 
-  Future<void> _onCheckStatus(
-    CheckProtectionStatusEvent event,
+  Future<bool> _isPermissionEnabled(
+    CheckPermissionEvent event,
     Emitter<HomeState> emit,
   ) async {
-    final hasAccessibility = await permissionService.isAccessibilityGranted();
-    final hasOverlay = await permissionService.isOverlayGranted();
-    final isBatteryDisabled = await permissionService
-        .isBatteryOptimizationDisabled();
-
-    if (hasAccessibility && hasOverlay && isBatteryDisabled) {
-      emit(HomePermissionEnabled());
+    emit(PermissionLoading());
+    bool isOverlayEnabled = await permissionService.isOverlayGranted();
+    bool isBatteryOptimizationEnabled = await permissionService
+        .isBatteryOptimizationGranted();
+    bool isAccessibilityEnabled = await permissionService
+        .isAccessibilityGranted();
+    final permissionStatus =
+        isOverlayEnabled &&
+        isBatteryOptimizationEnabled &&
+        isAccessibilityEnabled;
+    if (permissionStatus) {
+      emit(PermissionEnabled());
     } else {
-      emit(HomePermissionDisabled());
+      emit(PermissionDenied('Need Permissions'));
     }
+    return permissionStatus;
   }
 
-  Future<void> _omEnableOverlayPermission(
+  Future<void> _onEnableOverlayPermission(
     RequestOverlayPermissionEvent event,
     Emitter<HomeState> emit,
   ) async {
@@ -46,7 +51,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       emit(OverlayPermissionEnabled());
     } catch (e) {
-      emit(HomePermissionDenied('Failed to enable features :$e'));
+      emit(PermissionDenied('Failed to enable features :$e'));
     }
   }
 
@@ -57,62 +62,36 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     try {
       emit(BatteryOptimizationPermissionInitial());
       bool isBatteryDisabled = await permissionService
-          .isBatteryOptimizationDisabled();
+          .isBatteryOptimizationGranted();
       if (!isBatteryDisabled) {
         emit(BatteryOptimizationPermissionLoading());
         await permissionService.requestDisableBatteryOptimization();
         isBatteryDisabled = await permissionService
-            .isBatteryOptimizationDisabled();
+            .isBatteryOptimizationGranted();
       }
       emit(BatteryOptimizationPermissionEnabled());
     } catch (e) {
-      emit(HomePermissionDenied('Failed to enable features :$e'));
+      emit(PermissionDenied('Failed to enable features :$e'));
     }
   }
 
-  Future<void> _onEnableProtection(
-    EnableProtectionEvent event,
+  Future<void> _onEnableAccessibilityPermission(
+    RequestAccessibilityPermissionEvent event,
     Emitter<HomeState> emit,
   ) async {
-    emit(HomePermissionLoading());
     try {
-      bool hasAccessibility = await permissionService.isAccessibilityGranted();
-      bool hasOverlay = await permissionService.isOverlayGranted();
-      bool isBatteryDisabled = await permissionService
-          .isBatteryOptimizationDisabled();
-
-      if (!hasAccessibility) {
+      emit(AccessibilityPermissionInitial());
+      bool isAccessibilityDisabled = await permissionService
+          .isAccessibilityGranted();
+      if (!isAccessibilityDisabled) {
+        emit(AccessibilityPermissionLoading());
         await permissionService.requestAccessibilityPermission();
-        hasAccessibility = await permissionService.isAccessibilityGranted();
+        isAccessibilityDisabled = await permissionService
+            .isAccessibilityGranted();
       }
-
-      if (hasAccessibility && !hasOverlay) {
-        await permissionService.requestOverlayPermission();
-        hasOverlay = await permissionService.isOverlayGranted();
-      }
-
-      if (hasAccessibility && hasOverlay && !isBatteryDisabled) {
-        await permissionService.requestDisableBatteryOptimization();
-        isBatteryDisabled = await permissionService
-            .isBatteryOptimizationDisabled();
-      }
-
-      if (hasOverlay && hasAccessibility && isBatteryDisabled) {
-        emit(HomePermissionEnabled());
-      } else {
-        emit(
-          const HomePermissionDenied('Required permissions were not granted.'),
-        );
-      }
+      emit(AccessibilityPermissionEnabled());
     } catch (e) {
-      emit(HomePermissionDenied('Failed to enable features :$e'));
+      emit(PermissionDenied('Failed to enable features :$e'));
     }
-  }
-
-  Future<void> _onDisableProtection(
-    DisableProtectionEvent event,
-    Emitter<HomeState> emit,
-  ) async {
-    emit(HomePermissionDisabled());
   }
 }

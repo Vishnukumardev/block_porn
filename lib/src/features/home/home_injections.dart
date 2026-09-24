@@ -1,6 +1,6 @@
-import 'package:block_porn/src/features/home/bloc/home_bloc.dart';
 import 'package:get_it/get_it.dart';
 import '../../shared/services/permission_services.dart';
+import 'bloc/home_bloc.dart';
 
 final sl = GetIt.instance;
 
