@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/extension/app_theme_extension.dart';
+import '../../../../core/utils/injections.dart';
 import '../../../../shared/view/widgets/app_bar.dart';
 import '../../bloc/home_bloc.dart';
 import '../../bloc/home_event.dart';

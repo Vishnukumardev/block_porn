@@ -1,19 +1,13 @@
+import 'package:block_porn/src/features/main/main_injections.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../features/home/home_injections.dart';
-import '../../shared/services/app_injections.dart';
+import '../../shared/services/shared_injections.dart';
 
 final sl = GetIt.instance;
 
-Future<void> initInjections() async {
-  await initSharedPrefsInjections();
-  await initAppInjections();
-  await initHomeInjections();
-}
+Future initInjections() async {
+  await initSharedInjections();
 
-Future<void> initSharedPrefsInjections() async {
-  sl.registerSingletonAsync<SharedPreferences>(() async {
-    return await SharedPreferences.getInstance();
-  });
-  await sl.isReady<SharedPreferences>();
+  initMainInjections();
+
+  sl.allReady();
 }
