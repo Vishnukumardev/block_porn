@@ -21,6 +21,8 @@ class PermissionDenied extends HomeState {
   List<Object?> get props => [message];
 }
 
+class PermissionPermanentlyDenied extends HomeState {}
+
 class OverlayPermissionInitial extends HomeState {}
 
 class OverlayPermissionLoading extends HomeState {}

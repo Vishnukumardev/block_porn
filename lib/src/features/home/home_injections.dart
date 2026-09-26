@@ -6,10 +6,4 @@ void initHomeInjections() {
   if (!sl.isRegistered<PermissionService>()) {
     sl.registerLazySingleton<PermissionService>(() => PermissionService());
   }
-
-  if (!sl.isRegistered<HomeBloc>()) {
-    sl.registerFactory<HomeBloc>(
-      () => HomeBloc(permissionService: sl<PermissionService>()),
-    );
-  }
 }

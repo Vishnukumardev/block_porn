@@ -3,10 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../shared/services/permission_services.dart';
 import 'home_event.dart';
 import 'home_state.dart';
-class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final IPermissionService permissionService;
 
-  HomeBloc({required this.permissionService}) : super(PermissionInitial()) {
+class HomeBloc extends Bloc<HomeEvent, HomeState> {
+  HomeBloc() : super(PermissionInitial()) {
     on<CheckPermissionEvent>(_isPermissionEnabled);
     on<RequestOverlayPermissionEvent>(_onEnableOverlayPermission);
     on<RequestBatteryPermissionEvent>(_onEnableBatteryOptimizationPermission);
@@ -18,10 +17,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     emit(PermissionLoading());
-    bool isOverlayEnabled = await permissionService.isOverlayGranted();
-    bool isBatteryOptimizationEnabled = await permissionService
+    bool isOverlayEnabled = await PermissionService().isOverlayGranted();
+    bool isBatteryOptimizationEnabled = await PermissionService()
         .isBatteryOptimizationGranted();
-    bool isAccessibilityEnabled = await permissionService
+    bool isAccessibilityEnabled = await PermissionService()
         .isAccessibilityGranted();
     final permissionStatus =
         isOverlayEnabled &&
@@ -42,11 +41,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     try {
       emit(OverlayPermissionInitial());
 
-      bool hasOverlay = await permissionService.isOverlayGranted();
+      bool hasOverlay = await PermissionService().isOverlayGranted();
       if (!hasOverlay) {
         emit(OverlayPermissionLoading());
-        await permissionService.requestOverlayPermission();
-        hasOverlay = await permissionService.isOverlayGranted();
+        await PermissionService().requestOverlayPermission();
+        hasOverlay = await PermissionService().isOverlayGranted();
       }
 
       emit(OverlayPermissionEnabled());
@@ -61,12 +60,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     try {
       emit(BatteryOptimizationPermissionInitial());
-      bool isBatteryDisabled = await permissionService
+      bool isBatteryDisabled = await PermissionService()
           .isBatteryOptimizationGranted();
       if (!isBatteryDisabled) {
         emit(BatteryOptimizationPermissionLoading());
-        await permissionService.requestDisableBatteryOptimization();
-        isBatteryDisabled = await permissionService
+        await PermissionService().requestDisableBatteryOptimization();
+        isBatteryDisabled = await PermissionService()
             .isBatteryOptimizationGranted();
       }
       emit(BatteryOptimizationPermissionEnabled());
@@ -81,12 +80,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     try {
       emit(AccessibilityPermissionInitial());
-      bool isAccessibilityDisabled = await permissionService
+      bool isAccessibilityDisabled = await PermissionService()
           .isAccessibilityGranted();
       if (!isAccessibilityDisabled) {
         emit(AccessibilityPermissionLoading());
-        await permissionService.requestAccessibilityPermission();
-        isAccessibilityDisabled = await permissionService
+        await PermissionService().requestAccessibilityPermission();
+        isAccessibilityDisabled = await PermissionService()
             .isAccessibilityGranted();
       }
       emit(AccessibilityPermissionEnabled());

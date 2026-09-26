@@ -8,7 +8,6 @@ import '../../../../shared/view/widgets/app_bar.dart';
 import '../../bloc/home_bloc.dart';
 import '../../bloc/home_event.dart';
 import '../../bloc/home_state.dart';
-import '../../home_injections.dart';
 import '../widgets/section_option_widget.dart';
 
 @RoutePage()
@@ -30,105 +29,120 @@ class HomePage extends StatelessWidget {
                 spacing: 10.0,
                 children: [
                   ///----Permissions Block---///
-                  BlocBuilder<HomeBloc, HomeState>(
-                    builder: (context, state) {
-                      return Container(
-                        width: context.width,
-                        decoration: BoxDecoration(
-                          color: context.theme.scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(15),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.2),
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              offset: const Offset(2, 4),
-                            ),
-                          ],
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15.0,
-                          vertical: 15.0,
-                        ),
-                        child: Column(
-                          spacing: 10.0,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Please enable these Permissions : ",
-                              style: context.textTheme.bodyLarge,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Display over other apps"),
-                                InkWell(
-                                  onTap: () {
-                                    debugPrint("Clicked");
-                                    context.read<HomeBloc>().add(
-                                      RequestOverlayPermissionEvent(),
-                                    );
-                                  },
-                                  child: Text(
-                                    "Grant",
-                                    style: context.textTheme.labelLarge
-                                        ?.copyWith(
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Battery Optimization"),
-                                InkWell(
-                                  onTap: () {
-                                    debugPrint("Clicked");
-                                    context.read<HomeBloc>().add(
-                                      RequestBatteryPermissionEvent(),
-                                    );
-                                  },
-                                  child: Text(
-                                    "Grant",
-                                    style: context.textTheme.labelLarge
-                                        ?.copyWith(
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Accessibility Service"),
-                                InkWell(
-                                  onTap: () {
-                                    debugPrint("Clicked");
+                  BlocProvider(
+                    create: (context) =>
+                        HomeBloc()..add(CheckPermissionEvent()),
 
-                                    context.read<HomeBloc>().add(
-                                      RequestAccessibilityPermissionEvent(),
-                                    );
-                                  },
-                                  child: Text(
-                                    "Grant",
-                                    style: context.textTheme.labelLarge
-                                        ?.copyWith(
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                    child: BlocBuilder<HomeBloc, HomeState>(
+                      builder: (context, state) {
+                        if (state is PermissionLoading) {
+                          return const CircularProgressIndicator();
+                        }
+
+                        if (state is PermissionEnabled) {
+                          return Text("Enabled");
+                        }
+                        return Container(
+                          width: context.width,
+                          decoration: BoxDecoration(
+                            color: context.theme.scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.2),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: const Offset(2, 4),
+                              ),
+                            ],
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 15.0,
+                            vertical: 15.0,
+                          ),
+                          child: Column(
+                            spacing: 10.0,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Please enable these Permissions : ",
+                                style: context.textTheme.bodyLarge,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Display over other apps"),
+                                  InkWell(
+                                    onTap: () {
+                                      debugPrint("Clicked");
+                                      context.read<HomeBloc>().add(
+                                        RequestOverlayPermissionEvent(),
+                                      );
+                                    },
+                                    child: Text(
+                                      "Grant",
+                                      style: context.textTheme.labelLarge
+                                          ?.copyWith(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Battery Optimization"),
+                                  InkWell(
+                                    onTap: () {
+                                      debugPrint("Clicked");
+                                      context.read<HomeBloc>().add(
+                                        RequestBatteryPermissionEvent(),
+                                      );
+                                    },
+                                    child: Text(
+                                      "Grant",
+                                      style: context.textTheme.labelLarge
+                                          ?.copyWith(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Accessibility Service"),
+                                  InkWell(
+                                    onTap: () {
+                                      debugPrint("Clicked");
+
+                                      context.read<HomeBloc>().add(
+                                        RequestAccessibilityPermissionEvent(),
+                                      );
+                                    },
+                                    child: Text(
+                                      "Grant",
+                                      style: context.textTheme.labelLarge
+                                          ?.copyWith(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
 
                   ///----Block Sites---///
