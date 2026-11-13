@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 extension AppExtension on BuildContext {
   // Quick access to the overall theme

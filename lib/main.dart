@@ -4,9 +4,8 @@ import 'package:block_porn/src/core/router/custom_app_router.dart';
 import 'package:block_porn/src/core/router/custom_route_observer.dart';
 import 'package:block_porn/src/shared/data/sources/app_shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -16,7 +15,6 @@ import 'src/core/styles/app_theme.dart';
 import 'src/core/utils/injections.dart';
 import 'src/shared/domain/entitles/language_enum.dart';
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -24,6 +22,39 @@ void main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   runApp(ChangeNotifierProvider(create: (_) => AppNotifier(), child: MyApp()));
+}
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+class AppNotifier extends ChangeNotifier {
+  bool isDarkTheme = false;
+  AppNotifier() {
+    _initialize();
+  }
+
+  void destroy() {
+    dispose();
+  }
+
+  void update() {
+    notifyListeners();
+  }
+
+  void updateTheme(bool isDark) {
+    isDarkTheme = isDark;
+    AppHelper.setDarkTheme(isDark);
+    if (isDark) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    } else {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    }
+    notifyListeners();
+  }
+
+  Future<void> _initialize() async {
+    isDarkTheme = AppHelper.isDarkTheme();
+    notifyListeners();
+  }
 }
 
 class MyApp extends StatefulWidget {
@@ -44,27 +75,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   final GlobalKey<ScaffoldMessengerState> snackBarKey =
       GlobalKey<ScaffoldMessengerState>();
   final _appRouter = CustomAppRouter();
-  void setLocale(LanguageEnum newLocale) {
-    setState(() {
-      locale = Locale(newLocale.name);
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      FocusScope.of(context).unfocus();
-    });
-    WidgetsBinding.instance.addObserver(this);
-    if (mounted) {
-      LanguageEnum newLocale = AppHelper.getLang();
-      setState(() {
-        locale = Locale(newLocale.local);
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     TextScaler textScaler = TextScaler.linear(1.0);
@@ -86,12 +96,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 ? ThemeMode.dark
                 : ThemeMode.light,
             locale: locale,
-            localizationsDelegates: const [
-              S.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
+            localizationsDelegates: GlobalMaterialLocalizations.delegates,
             supportedLocales: S.delegate.supportedLocales,
           ),
         );
@@ -104,34 +109,25 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
-}
 
-class AppNotifier extends ChangeNotifier {
-  bool isDarkTheme = false;
-  Future<void> _initialize() async {
-    isDarkTheme = AppHelper.isDarkTheme();
-    notifyListeners();
-  }
-
-  AppNotifier() {
-    _initialize();
-  }
-  void update() {
-    notifyListeners();
-  }
-
-  void updateTheme(bool isDark) {
-    isDarkTheme = isDark;
-    AppHelper.setDarkTheme(isDark);
-    if (isDark) {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-    } else {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).unfocus();
+    });
+    WidgetsBinding.instance.addObserver(this);
+    if (mounted) {
+      LanguageEnum newLocale = AppHelper.getLang();
+      setState(() {
+        locale = Locale(newLocale.local);
+      });
     }
-    notifyListeners();
   }
 
-  void destroy() {
-    dispose();
+  void setLocale(LanguageEnum newLocale) {
+    setState(() {
+      locale = Locale(newLocale.name);
+    });
   }
 }

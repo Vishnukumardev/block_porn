@@ -20,5 +20,6 @@ class CustomAppRouter extends RootStackRouter {
       ],
     ),
     AutoRoute(path: '/dns', page: DnsProtectRoute.page),
+    AutoRoute(path: '/streak', page: StreakRoute.page),
   ];
 }

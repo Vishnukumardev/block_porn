@@ -1,24 +1,73 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../../../core/extension/app_theme_extension.dart';
 import '../../../../core/styles/app_colors.dart';
 
-class SectionOptionItem {
-  final String title;
-  final String subtitle;
-  final IconData icon;
-  final int action;
-  final String? route;
+final List<SectionOptionItem> blockSiteOption = [
+  SectionOptionItem(
+    title: "Streak",
+    subtitle: "Protection Against Sites",
+    icon: Icons.timelapse_sharp,
+    action: 2,
+    route: '/streak',
+  ),
+  SectionOptionItem(
+    title: "Block Sites",
+    subtitle: "Protection Against Sites",
+    icon: Icons.shield_sharp,
+    action: 1,
+    route: '',
+  ),
+  SectionOptionItem(
+    title: "DNS Shield",
+    subtitle: "Block sites in Network Level",
+    icon: Icons.cloud_download,
+    action: 0,
+    route: '/dns',
+  ),
+];
 
-  SectionOptionItem({
-    required this.title,
-    required this.subtitle,
-    required this.icon,
-    required this.action,
-    this.route,
-  });
-}
+final List<SectionOptionItem> challengesOption = [
+  SectionOptionItem(
+    title: "NoFap quest",
+    subtitle: "*count active quests",
+    icon: Icons.military_tech_outlined,
+    action: 0,
+    route: '',
+  ),
+  SectionOptionItem(
+    title: "Partner Up",
+    subtitle: "Monitor and support each other",
+    icon: Icons.people_alt_rounded,
+    action: 0,
+    route: '',
+  ),
+];
+
+final List<SectionOptionItem> panicOption = [
+  SectionOptionItem(
+    title: "Panic Button",
+    subtitle: "Emergency Button for urges",
+    icon: Icons.emergency,
+    action: 0,
+    route: '/panic',
+  ),
+  SectionOptionItem(
+    title: "Block Removal",
+    subtitle: "Blocking the app uninstall ",
+    icon: Icons.app_blocking,
+    action: 1,
+    route: '',
+  ),
+  SectionOptionItem(
+    title: "Relapse Tracker",
+    subtitle: "Track your progress",
+    icon: Icons.track_changes_rounded,
+    action: 0,
+    route: '',
+  ),
+];
 
 Widget sectionWidget({
   required bool isFirst,
@@ -84,14 +133,18 @@ Widget sectionWidget({
             } else if (item.action == 1) {
             } else if (item.action == 2) {}
           },
-          child: _buildActionTrailingWidget(context, item.action),
+          child: _buildActionTrailingWidget(context, item.action, item.route),
         ),
       ],
     ),
   );
 }
 
-Widget _buildActionTrailingWidget(BuildContext context, int action) {
+Widget _buildActionTrailingWidget(
+  BuildContext context,
+  int action,
+  String route,
+) {
   switch (action) {
     case 1:
       return Container(
@@ -124,33 +177,38 @@ Widget _buildActionTrailingWidget(BuildContext context, int action) {
         ),
       );
     case 2:
-      return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: AppColors.red),
-          color: AppColors.red.withAlpha(16),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              height: 8,
-              width: 8,
-              decoration: const BoxDecoration(
-                color: AppColors.red,
-                shape: BoxShape.circle,
+      return InkWell(
+        onTap: () {
+          AutoRouter.of(context).pushPath(route);
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: AppColors.red),
+            color: AppColors.red.withAlpha(16),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: 8,
+                width: 8,
+                decoration: const BoxDecoration(
+                  color: AppColors.red,
+                  shape: BoxShape.circle,
+                ),
               ),
-            ),
-            const SizedBox(width: 6),
-            Text(
-              'Reset',
-              style: context.textTheme.labelMedium?.copyWith(
-                color: AppColors.red,
-                fontSize: 10.0,
+              const SizedBox(width: 6),
+              Text(
+                'Reset',
+                style: context.textTheme.labelMedium?.copyWith(
+                  color: AppColors.red,
+                  fontSize: 10.0,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     default:
@@ -162,61 +220,18 @@ Widget _buildActionTrailingWidget(BuildContext context, int action) {
   }
 }
 
-final List<SectionOptionItem> blockSiteOption = [
-  SectionOptionItem(
-    title: "Streak",
-    subtitle: "Protection Against Sites",
-    icon: Icons.timelapse_sharp,
-    action: 2,
-  ),
-  SectionOptionItem(
-    title: "Block Sites",
-    subtitle: "Protection Against Sites",
-    icon: Icons.shield_sharp,
-    action: 1,
-  ),
-  SectionOptionItem(
-    title: "DNS Shield",
-    subtitle: "Block sites in Network Level",
-    icon: Icons.cloud_download,
-    action: 0,
-    route: '/dns',
-  ),
-];
+class SectionOptionItem {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final int action;
+  final String? route;
 
-final List<SectionOptionItem> challengesOption = [
-  SectionOptionItem(
-    title: "NoFap quest",
-    subtitle: "*count active quests",
-    icon: Icons.military_tech_outlined,
-    action: 0,
-  ),
-  SectionOptionItem(
-    title: "Partner Up",
-    subtitle: "Monitor and support each other",
-    icon: Icons.people_alt_rounded,
-    action: 0,
-  ),
-];
-
-final List<SectionOptionItem> panicOption = [
-  SectionOptionItem(
-    title: "Panic Button",
-    subtitle: "Emergency Button for urges",
-    icon: Icons.emergency,
-    action: 0,
-    route: '/panic',
-  ),
-  SectionOptionItem(
-    title: "Block Removal",
-    subtitle: "Blocking the app uninstall ",
-    icon: Icons.app_blocking,
-    action: 1,
-  ),
-  SectionOptionItem(
-    title: "Relapse Tracker",
-    subtitle: "Track your progress",
-    icon: Icons.track_changes_rounded,
-    action: 0,
-  ),
-];
+  SectionOptionItem({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.action,
+    this.route,
+  });
+}

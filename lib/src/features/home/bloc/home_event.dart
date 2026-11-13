@@ -14,3 +14,9 @@ class RequestBatteryPermissionEvent extends HomeEvent {}
 class RequestAccessibilityPermissionEvent extends HomeEvent {}
 
 class CheckPermissionEvent extends HomeEvent {}
+
+class CheckTimerEvent extends HomeEvent {}
+
+class ResetTimerEvent extends HomeEvent {}
+
+class StartTimerEvent extends HomeEvent {}
